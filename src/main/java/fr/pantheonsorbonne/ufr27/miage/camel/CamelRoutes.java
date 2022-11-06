@@ -26,6 +26,11 @@ public class CamelRoutes extends RouteBuilder {
                 .process(new PerimeterComputer())
                 .marshal().json()
                 .to("file:./target/data/calcs");
+        from("jms:queue/miage.LI.equilateral")
+                .unmarshal().jacksonXml(Triangle.class)
+                .process(new PerimeterComputer())
+                .marshal().json()
+                .to("file:./target/data/calcs");
 
     }
 
