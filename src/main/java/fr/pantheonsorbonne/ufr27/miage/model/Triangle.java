@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
 import  java.lang.Math;
@@ -35,9 +36,10 @@ public class Triangle implements Serializable {
 
     public Point[] parsePoints(List<List<String>> points) {
         Point[] finalPoints = new Point[3];
-        finalPoints[0] = new Point(points.get(0));
-        finalPoints[1] = new Point(points.get(1));
-        finalPoints[2] = new Point(points.get(2));
+        int i;
+        for(i=0; i<finalPoints.length; i++){
+            finalPoints[i] = new Point(points.get(i));
+        }
         return finalPoints;
     }
 
@@ -47,7 +49,9 @@ public class Triangle implements Serializable {
         return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
     public boolean isEquilateral(){
-        DecimalFormat dec = new DecimalFormat("#0.00000000000");
+        DecimalFormatSymbols decimalFormatSymbols = DecimalFormatSymbols.getInstance();
+        decimalFormatSymbols.setDecimalSeparator('.');
+        DecimalFormat dec = new DecimalFormat("#0.00000000000", decimalFormatSymbols);
         double AB = Double.parseDouble(dec.format(getLength(this.point[0], this.point[1])));
         double AC = Double.parseDouble(dec.format(getLength(this.point[0], this.point[2])));
         double BC = Double.parseDouble(dec.format(getLength(this.point[1], this.point[2])));
@@ -56,7 +60,9 @@ public class Triangle implements Serializable {
     }
 
     public double getPerimeter(){
-        DecimalFormat dec = new DecimalFormat("#0.00000000000");
+        DecimalFormatSymbols decimalFormatSymbols = DecimalFormatSymbols.getInstance();
+        decimalFormatSymbols.setDecimalSeparator('.');
+        DecimalFormat dec = new DecimalFormat("#0.00000000000", decimalFormatSymbols);
         double AB = Double.parseDouble(dec.format(getLength(this.point[0], this.point[1])));
         double AC = Double.parseDouble(dec.format(getLength(this.point[0], this.point[2])));
         double BC = Double.parseDouble(dec.format(getLength(this.point[1], this.point[2])));

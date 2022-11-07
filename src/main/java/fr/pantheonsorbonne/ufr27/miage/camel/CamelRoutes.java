@@ -66,7 +66,7 @@ public class CamelRoutes extends RouteBuilder {
         @Override
         public void process(Exchange exchange) throws Exception {
             Triangle triangle = exchange.getMessage().getBody(Triangle.class);
-            Map<String, Double> perimetre = new HashMap<String, Double>();
+            Map<String, Double> perimetre = new HashMap<>();
             perimetre.put("perimetre", triangle.getPerimeter());
             exchange.getMessage().setBody(perimetre);
 
